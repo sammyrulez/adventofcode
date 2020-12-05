@@ -1,8 +1,7 @@
 
 from advent_of_code_2020.fp.list import List
 from typing import Any, Generic, Optional, Tuple, Callable, TypeVar
-from dataclasses import dataclass, fields
-from monads.currying import curry
+from dataclasses import dataclass
 import re
 
 T = TypeVar("T")
