@@ -21,16 +21,16 @@ def _pattern_accumulator(step_right:int, starting_pos: MapExplorer, new_line:str
             
 
 def explore(path: str, step_right=3, step_down=1) -> int:
-    slope_map = List([e for i, e in enumerate(
+    slope_map:List[str] = List([e for i, e in enumerate(
         _read_file(path)) if (i % step_down) == 0])
-
-    trees = slope_map.fold(_pattern_accumulator(step_right),(0,0))[1]
-    print(f"trees: {trees}")
-    return trees
+    init_val: Tuple[int, int] = (0, 0)
+    trees: Tuple[int, int] = slope_map.fold(
+        _pattern_accumulator(step_right), init_val)
+    return trees[1]
 
 
 def find_slopes(path: str) -> int:
-    slopes = List([
+    slopes:List[Tuple[int,int]] = List([
         ( 1,  1),
         ( 3,  1),
         ( 5,  1),
@@ -38,8 +38,13 @@ def find_slopes(path: str) -> int:
         ( 1,  2)
     ])
 
-    return slopes.map(lambda t: explore(
-        path, step_right=t[0], step_down=t[1])).fold(lambda v, e: v * e, 1)
+    def explore_slope(t: Tuple[int, int]) -> int:
+        return explore(
+            path, step_right=t[0], step_down=t[1])
+    def mul(v:int, e:int) -> int :
+        return v * e
+
+    return slopes.map(explore_slope).fold(mul, int(1))
 
     
     
