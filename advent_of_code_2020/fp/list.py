@@ -57,6 +57,11 @@ class List(Monad[T], Monoidal[list]):  # type: ignore
         return List(
             reduce(flat, self, List.mzero())  # type: ignore
         )
+
+    def sort(self, key:str = None,  reverse: bool = False) -> List[T]:
+        lst_copy = self.value.copy()
+        lst_copy.sort(key=key, reverse=reverse)
+        return List(lst_copy)
     
     def fold(self, functor: Callable[[S,T], S], base_val:S) -> S:
         return reduce(functor,self.value,base_val)
