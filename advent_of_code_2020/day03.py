@@ -44,7 +44,7 @@ def find_slopes(path: str) -> int:
     def mul(v:int, e:int) -> int :
         return v * e
 
-    return slopes.map(explore_slope).fold(mul, int(1))
+    return int(slopes.map(explore_slope).fold(mul, int(1)))
 
     
     

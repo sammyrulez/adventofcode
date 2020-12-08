@@ -26,22 +26,24 @@ def _decode(seat_data:List[str]) -> List[int]:
 
 
 def part_1(path: str) -> int:
-    return max(_decode(_read_file(path)))
+    return int(max(_decode(_read_file(path))))
 
 
 def part_2(path: str) -> int:
     
-    all_seats = List(range(0, 128*8))
+    all_seats:List[int] = List(range(0, 128*8))
     sorted_seats = _decode(_read_file(path)).sort()
 
     def _check_seat(i: int) -> Optional[int]:
         if i not in sorted_seats:
             return i
-    missing_seats = all_seats.map(_check_seat).flatten()
+        else:
+            return None
+    missing_seats: List[int] = all_seats.map(_check_seat).flatten()
     for i in missing_seats:
         if i-1 not in missing_seats and i+1 not in missing_seats:
-            return i
-
-    return sorted_seats
+            return int(i)
+    return 0
+    
 
 

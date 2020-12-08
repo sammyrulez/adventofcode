@@ -1,7 +1,7 @@
 from __future__ import annotations
 from functools import reduce
 from itertools import chain
-from typing import Any, Callable, Iterable, Iterator, List as _List, TypeVar
+from typing import Any, Callable, Iterable, Iterator, List as _List, Optional, TypeVar
 
 from monads.monad import Monad  
 from monads.monoid import Monoidal
@@ -58,7 +58,7 @@ class List(Monad[T], Monoidal[list]):  # type: ignore
             reduce(flat, self, List.mzero())  # type: ignore
         )
 
-    def sort(self, key:str = None,  reverse: bool = False) -> List[T]:
+    def sort(self, key: Optional[str] = None,  reverse: bool = False) -> List[T]:
         lst_copy = self.value.copy()
         lst_copy.sort(key=key, reverse=reverse)
         return List(lst_copy)

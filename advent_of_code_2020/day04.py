@@ -41,16 +41,14 @@ def _read_file(path: str) -> List[str]:
 
 
 def _check_passport(passport: str) -> bool:
-    return List[Field](fields).fold(
-        lambda a,f: (a and len(re.findall(f.regexp, passport)) >0),True
-        )
+    b_res:bool = List[Field](fields).fold( lambda a,f: (a and len(re.findall(f.regexp, passport)) >0),True )
+    return b_res
 
 
 def _validate_passports(passport: str) -> bool:
-    return List[Field](fields).fold(
-        lambda a, f: (a and  _validate_passport(passport,f)), True
-    )
-def _validate_passport(passport: str,field:Field) -> bool:
+    b_res:bool = List[Field](fields).fold( lambda a, f: (a and  _validate_passport(passport,f)), True )
+    return b_res
+def _validate_passport(passport: str,field:Field[str]) -> bool:
    match = re.findall(field.regexp, passport)
    if len(match) == 1:
        value = match[0][4:]
